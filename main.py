@@ -37,7 +37,9 @@ class HopuWSprocessor():
         self.client = client
         self.client.subscribe("WS/+/attrs")
         self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
+        #self.client.on_message = self.on_message
+        self.client.message_callback_add("WS/+/attrs", self.on_message)
+
         self.excluded_vars = ['thswIndex', 'windChill', 'heatIndex', 'dewPoint', 'precipitation',
                               'windDirectionGustAverage10', 'windSpeed', 'batteryAverageCurrent', 'batteryVoltage',
                               'soilTemperature2', 'soilHumidity2', 'soilConductivity2', 'evapotranspirationDaily']
@@ -71,7 +73,7 @@ class HopuWSprocessor():
             data = json.loads(str(payload))
             datos = []
             now = str(datetime.utcnow())
-            logger.info(f"############### Procesando {staID} ###############")
+            logger.info(f"############### Procesando Hopu {staID} ###############")
             for k, v in data.items():
                 if 'crowd_' in k or k in self.excluded_vars:
                     continue
@@ -128,7 +130,7 @@ class HopuWSprocessor():
                     logger.info(f"{staID}: {respuesta}")
                 logger.info("################# FIN DEL PROCESAMIENTO #####################")
         except Exception as e:
-            print(e)
+            logging.error(e)
 
 
 class ModdedHopuWSprocessor():
@@ -136,7 +138,8 @@ class ModdedHopuWSprocessor():
         self.client = client
         self.client.subscribe("WS/+/json")
         self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
+        #self.client.on_message = self.on_message
+        self.client.message_callback_add("WS/+/json", self.on_message)
         self.excluded_vars = ['RainRate', 'WindGust', 'WindGustDirection', 'YearRain', 'MonthRain',
                               'WindSpeed', 'AvgWindSpeed2', 'BatteryStatus', 'BatteryVoltage']
 
@@ -152,9 +155,9 @@ class ModdedHopuWSprocessor():
 
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
-            logger.info("Hopu WS processor connected")
+            logger.info("Modded Hopu WS processor connected")
         else:
-            logger.error("Failed to connect WS processor, return code %d\n", rc)
+            logger.error("Failed to connect modded WS processor, return code %d\n", rc)
 
     def on_message(self, client, userdata, msg):
         payload = msg.payload.decode()
@@ -169,7 +172,7 @@ class ModdedHopuWSprocessor():
             data = json.loads(str(payload))
             datos = []
             now = str(datetime.utcnow())
-            logger.info(f"############### Procesando {staID} ###############")
+            logger.info(f"############### Procesando moddedHopu {staID} ###############")
             for k, v in data.items():
                 if k in self.excluded_vars:
                     continue
@@ -210,7 +213,7 @@ class ModdedHopuWSprocessor():
                     logger.info(f"{staID}: {respuesta}")
                 logger.info("################# FIN DEL PROCESAMIENTO #####################")
         except Exception as e:
-            print(e)
+            logging.error(e)
 
 
 
@@ -233,6 +236,7 @@ def run():
     client = connect_mqtt()
     HopuWSprocessor(client)
     ModdedHopuWSprocessor(client)
+
     client.loop_forever()
 
 

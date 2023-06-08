@@ -1947,3 +1947,115 @@
 [2023-05-22 23:33:13,335] {main.py:209} INFO - ################# FIN DEL PROCESAMIENTO #####################
 [2023-05-22 23:34:46,836] {main.py:155} INFO - Hopu WS processor connected
 [2023-05-22 23:36:29,497] {main.py:166} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 09:20:06,390] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:20:34,032] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:20:37,102] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:20:39,309] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:21:11,599] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:21:11,616] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:21:18,185] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:21:23,665] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:21:34,037] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:22:14,870] {main.py:172} INFO - ############### Procesando ECDA95EBD724 ###############
+[2023-06-08 09:22:14,893] {main.py:210} INFO - ECDA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 09:22:14,894] {main.py:211} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 09:22:17,640] {main.py:166} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 09:22:34,010] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:23:16,397] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:23:19,439] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:23:26,025] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:23:30,144] {main.py:172} INFO - ############### Procesando 00DA95EBD724 ###############
+[2023-06-08 09:23:30,176] {main.py:210} INFO - 00DA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 09:23:30,176] {main.py:211} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 09:23:34,027] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:23:59,452] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:23:59,889] {main.py:172} INFO - ############### Procesando C1LRWSLC04 ###############
+[2023-06-08 09:29:18,446] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:29:33,999] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:30:34,015] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:30:39,298] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:31:11,650] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:31:11,663] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:31:33,984] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:32:00,148] {main.py:166} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 09:32:34,017] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:33:33,973] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:33:43,186] {main.py:172} INFO - ############### Procesando moddedHopu 00DA95EBD724 ###############
+[2023-06-08 09:33:43,211] {main.py:210} INFO - 00DA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 09:33:43,211] {main.py:211} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 09:34:33,996] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:35:34,045] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:35:38,559] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:35:39,582] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:35:53,565] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:35:58,247] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:36,454] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:37,487] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:38,605] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:39,628] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:40,652] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:41,675] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:42,698] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:43,721] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:44,744] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:45,762] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:46,783] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:47,806] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:48,828] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:49,852] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:50,876] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:51,899] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:52,923] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:53,946] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:54,968] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:38:55,985] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:38:57,005] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 09:39:22,555] {main.py:155} INFO - Hopu WS processor connected
+[2023-06-08 09:39:34,021] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 09:40:11,824] {main.py:155} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:23:18,428] {main.py:155} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:23:33,959] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:24:33,985] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:25:33,913] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:25:39,205] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:26:11,931] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:26:11,948] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:26:33,930] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:27:09,835] {main.py:172} INFO - ############### Procesando moddedHopu ECDA95EBD724 ###############
+[2023-06-08 10:27:09,861] {main.py:210} INFO - ECDA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 10:27:09,861] {main.py:211} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 10:27:10,289] {main.py:166} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 10:27:33,970] {main.py:172} INFO - ############### Procesando moddedHopu C1LRWSLC04 ###############
+[2023-06-08 10:31:23,911] {main.py:57} INFO - Hopu WS processor connected
+[2023-06-08 10:31:40,424] {main.py:74} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:31:47,952] {main.py:68} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 10:32:19,897] {main.py:74} INFO - ############### Procesando Hopu ECDA95EBD724 ###############
+[2023-06-08 10:41:31,030] {main.py:157} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:41:59,032] {main.py:168} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 10:41:59,293] {main.py:174} INFO - ############### Procesando moddedHopu ECDA95EBD724 ###############
+[2023-06-08 10:41:59,316] {main.py:212} INFO - ECDA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 10:41:59,317] {main.py:213} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 10:42:37,811] {main.py:157} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:44:39,453] {main.py:158} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:46:10,085] {main.py:158} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:46:12,048] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:46:12,059] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:46:33,945] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:47:05,106] {main.py:175} INFO - ############### Procesando moddedHopu ECDA95EBD724 ###############
+[2023-06-08 10:47:05,127] {main.py:213} INFO - ECDA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 10:47:05,128] {main.py:214} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 10:47:05,322] {main.py:169} INFO - La estación 301794EBD724 no está en la base de datos. Ignorando.
+[2023-06-08 10:47:33,947] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:48:31,248] {main.py:158} INFO - Modded Hopu WS processor connected
+[2023-06-08 10:48:33,892] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:48:53,062] {main.py:175} INFO - ############### Procesando moddedHopu 00DA95EBD724 ###############
+[2023-06-08 10:48:53,082] {main.py:213} INFO - 00DA95EBD724: {'errors': [], 'status_code': 201}
+[2023-06-08 10:48:53,082] {main.py:214} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 10:49:33,939] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:50:33,947] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:50:39,210] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:50:39,232] {main.py:130} INFO - C1LRWSLC04: {'errors': [], 'status_code': 201}
+[2023-06-08 10:50:39,232] {main.py:131} INFO - ################# FIN DEL PROCESAMIENTO #####################
+[2023-06-08 10:51:12,075] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:51:12,084] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############
+[2023-06-08 10:51:33,953] {main.py:76} INFO - ############### Procesando Hopu C1LRWSLC04 ###############

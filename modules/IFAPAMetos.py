@@ -7,7 +7,7 @@ import os
 cliente = APIClass()
 
 # Obtener una instancia del logger configurado
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 class IFAPAMetos:
     def __init__(self, client):
@@ -18,8 +18,11 @@ class IFAPAMetos:
         self.client.message_callback_add("IFAPAMetos/+/json", self.on_message)
         self.excluded_vars = ['ts', 'Solar Panel', 'Battery', 'HC Serial Number', 'Dew Point', 'VPD',
                               'DeltaT', 'EAG Soil moisture 1',  'EAG Soil moisture 2',  'EAG Soil moisture 3',
-                               'EAG Soil moisture 4',  'EAG Soil moisture 5',  'EAG Soil moisture 6',
+                              'EAG Soil moisture 4',  'EAG Soil moisture 5',  'EAG Soil moisture 6',
                               'EAG Soil moisture 7',  'EAG Soil moisture 8',  'EAG Soil moisture 9',
+                              'EAG Humedad del suelo 1', 'EAG Humedad del suelo 2', 'EAG Humedad del suelo 3',
+                              'EAG Humedad del suelo 4', 'EAG Humedad del suelo 5', 'EAG Humedad del suelo 6',
+                              'EAG Humedad del suelo 7', 'EAG Humedad del suelo 8', 'EAG Humedad del suelo 9',
                               'Volumetric Ionic Content 1', 'Volumetric Ionic Content 2', 'Volumetric Ionic Content 3',
                               'Volumetric Ionic Content 4', 'Volumetric Ionic Content 5', 'Volumetric Ionic Content 6',
                               'Volumetric Ionic Content 7', 'Volumetric Ionic Content 8', 'Volumetric Ionic Content 9',
@@ -63,10 +66,10 @@ class IFAPAMetos:
                 if 'Barometer' == k:
                     logger.debug(f"{staID}: Pressión atmosférica {v}")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PRES', value=v, ts=now))
-                elif 'HC Air temperature' == k:
+                elif 'HC Air temperature' == k or 'Air temperature, high precision' == k:
                     logger.debug(f"{staID}: Temperatura {v} C")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='TC', value=round(v,1), ts=now))
-                elif 'HC Relative humidity' == k:
+                elif 'HC Relative humidity' == k or 'Relative humidity' == k:
                     logger.debug(f"{staID}: RH {v} %")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HUM', value=v, ts=now))
                 elif 'U-sonic wind speed' == k or 'Wind speed' == k:

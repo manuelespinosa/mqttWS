@@ -1,5 +1,5 @@
-from modules.environAPI_client.environClient import APIClass
 import logging
+from modules.environAPI_client.environClient import APIClass
 import json
 from datetime import datetime
 import os
@@ -7,7 +7,7 @@ import os
 cliente = APIClass()
 
 # Obtener una instancia del logger configurado
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('')
 
 class IFAPAMetos:
     def __init__(self, client):

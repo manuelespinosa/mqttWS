@@ -1,12 +1,12 @@
+import logging
 from datetime import datetime
 from modules.environAPI_client.environClient import APIClass
-import logging
 import os
 import json
 
 cliente = APIClass()
 
-logger = logging.getLogger()
+logger = logging.getLogger('')
 
 class HopuWSprocessor:
 

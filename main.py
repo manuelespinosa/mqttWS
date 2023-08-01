@@ -1,21 +1,25 @@
-import paho.mqtt.client as mqtt
 import logging
 from logging.handlers import RotatingFileHandler
+import paho.mqtt.client as mqtt
 from datetime import datetime
 import sys
 from modules.IFAPAMetos import IFAPAMetos
 from modules.HopuWSprocessor import HopuWSprocessor
 from modules.ModdedHopuWSprocessor import ModdedHopuWSprocessor
 
-logger = logging.getLogger('mqttWS')
-logger.setLevel(logging.DEBUG)
+logger = logging.getLogger('')
+logger.setLevel(logging.INFO)
 format = logging.Formatter('[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
-handler = RotatingFileHandler('log.txt', maxBytes=500*1024, backupCount=2)
-handler.setFormatter(format)
+
 ch = logging.StreamHandler(sys.stdout)
-logger.addHandler(handler)
+ch.setFormatter(format)
 logger.addHandler(ch)
 
+handler = RotatingFileHandler('log.txt', maxBytes=500*1024, backupCount=2)
+handler.setFormatter(format)
+logger.addHandler(handler)
+
+logger.info("Arrancado")
 
 mqttBroker ="meteocdg.uca.es"
 mqttUser = "mqttws"

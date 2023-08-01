@@ -28,7 +28,7 @@ class IFAPAMetos:
                               'Volumetric Ionic Content 7', 'Volumetric Ionic Content 8', 'Volumetric Ionic Content 9',
                               'Soil temperature 1', 'Soil temperature 2', 'Soil temperature 3', 'Soil temperature 4',
                               'Soil temperature 5', 'Soil temperature 6', 'Soil temperature 7', 'Soil temperature 8',
-                              'Soil temperature 9']
+                              'Soil temperature 9', 'Sunshine duration', 'Wind gust', 'Wind speed max']
 
         respuesta = cliente.get_codigos_estaciones("IFAPA")
         if respuesta['status_code'] == 200:
@@ -63,9 +63,9 @@ class IFAPAMetos:
             for k, v in data.items():
                 if k in self.excluded_vars:
                     continue
-                if 'Barometer' == k:
-                    logger.debug(f"{staID}: Pressión atmosférica {v}")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PRES', value=v, ts=now))
+                if 'Precipitation' == k:
+                    logger.debug(f"{staID}: Precipitación {v} mm")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=round(v, 1), ts=now))
                 elif 'HC Air temperature' == k or 'Air temperature, high precision' == k:
                     logger.debug(f"{staID}: Temperatura {v} C")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='TC', value=round(v,1), ts=now))

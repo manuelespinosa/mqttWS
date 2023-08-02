@@ -3,6 +3,7 @@ from modules.environAPI_client.environClient import APIClass
 import json
 from datetime import datetime
 import os
+import pytz
 
 cliente = APIClass()
 
@@ -58,7 +59,9 @@ class IFAPAMetos:
 
             data = json.loads(str(payload))
             datos = []
-            now = str(datetime.fromtimestamp(data['ts']))
+            local = pytz.timezone('Europe/Madrid')
+            now_tz = local.localize(datetime.fromtimestamp(data['ts']))
+            now = str(now_tz.astimezone(pytz.utc)).split('+')[0]
             logger.info(f"############### Procesando IFAPA Metos {staID} ###############")
             for k, v in data.items():
                 if k in self.excluded_vars:

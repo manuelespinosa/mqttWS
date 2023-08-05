@@ -14,7 +14,7 @@ class IFAPAMetos:
     def __init__(self, client):
         self.client = client
         self.client.subscribe("IFAPAMetos/+/json")
-        self.client.on_connect = self.on_connect
+        #self.client.on_connect = self.on_connect
         #self.client.on_message = self.on_message
         self.client.message_callback_add("IFAPAMetos/+/json", self.on_message)
         self.excluded_vars = ['ts', 'Solar Panel', 'Battery', 'HC Serial Number', 'Dew Point', 'VPD',
@@ -41,17 +41,20 @@ class IFAPAMetos:
             logger.error(f"Respuesta incorrecta del servidor: {respuesta['status_code']}")
             self.dict_estaciones = None
 
+    """
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
             logger.info("IFAPA Metos WS processor connected")
+            logger.info(f"rc {rc}, userdata {str(userdata)}, flags {str(flags)}")
         else:
             logger.error("Failed to connect IFAPA Metos WS processor, return code %d\n", rc)
+    """
 
     def on_message(self, client, userdata, msg):
-        payload = msg.payload.decode()
-        topic = msg.topic
-        logger.debug(f"Received `{payload}` from `{topic}` topic")
         try:
+            payload = msg.payload.decode()
+            topic = msg.topic
+            logger.debug(f"Received `{payload}` from `{topic}` topic")
             staID = topic.split('/')[1]
             if staID not in self.dict_estaciones.keys():
                 logger.info(f"La estación {staID} no está en la base de datos. Ignorando.")

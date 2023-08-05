@@ -27,13 +27,17 @@ mqttPass = "ICEI-Lab1"
 clientId = f"WSProcessor{str(datetime.now().hour)}{str(datetime.now().minute)}{str(datetime.now().second)}"
 
 
-def connect_mqtt():
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            logger.info("Connected to MQTT Broker!")
-        else:
-            logger.error("Failed to connect, return code %d\n", rc)
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        logger.info("Connected to MQTT Broker!")
+        HopuWSprocessor(client)
+        ModdedHopuWSprocessor(client)
+        IFAPAMetos(client)
+    else:
+        logger.error("Failed to connect, return code %d\n", rc)
 
+
+def connect_mqtt():
     client = mqtt.Client(clientId)
     client.username_pw_set(mqttUser, mqttPass)
     client.on_connect = on_connect
@@ -43,9 +47,7 @@ def connect_mqtt():
 
 def run():
     client = connect_mqtt()
-    HopuWSprocessor(client)
-    ModdedHopuWSprocessor(client)
-    IFAPAMetos(client)
+
 
     client.loop_forever()
 

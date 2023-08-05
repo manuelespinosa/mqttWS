@@ -14,7 +14,7 @@ class HopuWSprocessor:
 
         self.client = client
         self.client.subscribe("WS/+/attrs")
-        self.client.on_connect = self.on_connect
+        #self.client.on_connect = self.on_connect
         #self.client.on_message = self.on_message
         self.client.message_callback_add("WS/+/attrs", self.on_message)
 
@@ -34,11 +34,13 @@ class HopuWSprocessor:
             logger.error(f"Respuesta incorrecta del servidor: {respuesta['status_code']}")
             self.dict_estaciones = None
 
+    """
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
             logger.info("Hopu WS processor connected")
         else:
             logger.error("Failed to connect WS processor, return code %d\n", rc)
+    """
 
     def on_message(self, client, userdata, msg):
         payload = msg.payload.decode()

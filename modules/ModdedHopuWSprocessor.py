@@ -18,8 +18,8 @@ class ModdedHopuWSprocessor:
         #self.client.on_connect = self.on_connect
         #self.client.on_message = self.on_message
         self.client.message_callback_add("WS/+/json", self.on_message)
-        self.excluded_vars = ['RainRate', 'WindGust', 'WindGustDirection', 'YearRain', 'MonthRain',
-                              'WindSpeed', 'AvgWindSpeed2', 'BatteryStatus', 'BatteryVoltage']
+        self.excluded_vars = ['RainRate', 'MonthRain',
+                              'WindSpeed', 'AvgWindSpeed2', 'BatteryStatus', 'BatteryVoltage', 'unsentRain']
 
         self.unprocessed_vars = []
         respuesta = cliente.get_codigos_estaciones("TIC168")
@@ -41,7 +41,11 @@ class ModdedHopuWSprocessor:
     """
 
     def on_message(self, client, userdata, msg):
-        payload = msg.payload.decode()
+        try:
+            payload = msg.payload.decode()
+        except Exception as e:
+            logger.error(f"Problema decodificando mensaje: {msg}")
+            logger.error(str(e))
         topic = msg.topic
         logger.debug(f"Received `{payload}` from `{topic}` topic")
         try:
@@ -75,13 +79,50 @@ class ModdedHopuWSprocessor:
                 elif 'SolarRadiation' == k:
                     logger.debug(f"{staID}: RH {v} W/m2")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHI', value=v, ts=now))
-                elif 'unsentRain' == k:
-                    logger.debug(f"{staID}: Precipitation {v} mm2")
-                    if v < 35:
-                        datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=v, ts=now))
-                        logger.debug(f"{staID}: Precitación(Corregida) {v} mm/m2")
+                elif 'WindGust' == k:
+                    logger.debug(f"{staID}: WindGust {v} m/s")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='ANEmax', value=round(float(v),2), ts=now))
+                elif 'WindGustDirection' == k:
+                    logger.debug(f"{staID}: WindGust Direction {v} º")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=now))
+                elif 'YearRain' == k:
+                    logger.debug(f"{staID}: Year Rain {v} mm")
+                    # Cargar datos desde el archivo JSON
+                    try:
+                        with open("./moddedHopu.json", "r") as archivo:
+                            datos_moddedHopu = json.load(archivo)
+                    except Exception as e:
+                        logger.exception(e)
+                        datos_moddedHopu = dict()
+
+                    if staID in datos_moddedHopu.keys():
+                        year_rain = datos_moddedHopu[staID]['YearRain']
+
+                        if year_rain > v:
+                            if v < 15:
+                                year_rain_diff = v
+                            else:
+                                year_rain_diff = 0
+                        else:
+                            year_rain_diff = v - year_rain
+
                     else:
-                        logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")
+                        datos_moddedHopu[staID] = {}
+                        year_rain_diff = 0
+
+                    datos_moddedHopu[staID]['YearRain'] = v
+                    with open('./moddedHopu.json', 'w') as archivo:
+                        json.dump(datos_moddedHopu, archivo)
+
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=year_rain_diff, ts=now))
+
+                #elif 'unsentRain' == k:
+                #    logger.debug(f"{staID}: Precipitation {v} mm2")
+                #    if v < 35:
+                #        datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=v, ts=now))
+                #        logger.debug(f"{staID}: Precitación(Corregida) {v} mm/m2")
+                #    else:
+                #        logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")
                 else:
                     if k not in self.unprocessed_vars:
                         self.unprocessed_vars.append(k)

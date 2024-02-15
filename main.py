@@ -1,4 +1,5 @@
 import logging
+import os
 from logging.handlers import RotatingFileHandler
 import paho.mqtt.client as mqtt
 from datetime import datetime
@@ -22,7 +23,10 @@ logger.addHandler(handler)
 logger.info("Arrancado")
 
 mqttBroker ="meteocdg.uca.es"
-mqttUser = "mqttws"
+if 'DEBUG' in os.environ:
+    mqttUser = "mqttwsdebug"
+else:
+    mqttUser = "mqttws"
 mqttPass = "ICEI-Lab1"
 clientId = f"WSProcessor{str(datetime.now().hour)}{str(datetime.now().minute)}{str(datetime.now().second)}"
 
@@ -46,11 +50,15 @@ def connect_mqtt():
 
 
 def run():
-    client = connect_mqtt()
-
-
-    client.loop_forever()
+    try:
+        client = connect_mqtt()
+        client.loop_forever()
+    except Exception as e:
+        logger.exception(str(e))
 
 
 if __name__ == '__main__':
-    run()
+    try:
+        run()
+    except Exception as e:
+        logger.exception(str(e))

@@ -112,7 +112,7 @@ class ModdedHopuWSprocessor:
                     with open('./moddedHopu.json', 'w') as archivo:
                         json.dump(datos_moddedHopu, archivo)
 
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=hplv_diff, ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=hplv_diff*0.075, ts=now))
 
                 elif 'YearRain' == k:
                     logger.debug(f"{staID}: Year Rain {v} mm")

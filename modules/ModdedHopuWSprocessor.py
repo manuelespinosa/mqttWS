@@ -103,9 +103,9 @@ class ModdedHopuWSprocessor:
                 elif 'WindGustDirection' == k:
                     logger.debug(f"{staID}: WindGust Direction {v} º")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=ts))
-                elif 'unsentFog' == k:
+                elif 'fogClicks' == k:
                     logger.debug((f"{staID}: Precipitación Horizozntal"))
-                    """
+
                     # Cargar datos desde el archivo JSON
                     try:
                         with open("./moddedHopu.json", "r") as archivo:
@@ -131,10 +131,11 @@ class ModdedHopuWSprocessor:
                     with open('./moddedHopu.json', 'w') as archivo:
                         json.dump(datos_moddedHopu, archivo)
                     
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=hplv_diff*0.075, ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=hplv_diff*0.075, ts=ts))
                     """
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=v/0.28*0.075,
                                      ts=ts))
+                    """
                 elif 'YearRain' == k:
                     logger.debug(f"{staID}: Year Rain {v} mm")
                     # Cargar datos desde el archivo JSON

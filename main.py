@@ -9,7 +9,11 @@ from modules.HopuWSprocessor import HopuWSprocessor
 from modules.ModdedHopuWSprocessor import ModdedHopuWSprocessor
 
 logger = logging.getLogger('')
-logger.setLevel(logging.INFO)
+if 'DEBUG' in os.environ:
+    logger.setLevel(logging.DEBUG)
+else:
+    logger.setLevel(logging.INFO)
+
 format = logging.Formatter('[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
 
 ch = logging.StreamHandler(sys.stdout)

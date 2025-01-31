@@ -15,11 +15,13 @@ class ModdedHopuWSprocessor:
     def __init__(self, client):
         self.client = client
         self.client.subscribe("WS/+/json")
+        self.client.subscribe("WS/+/jsonts")
         #self.client.on_connect = self.on_connect
         #self.client.on_message = self.on_message
         self.client.message_callback_add("WS/+/json", self.on_message)
-        self.excluded_vars = ['RainRate', 'MonthRain',
-                              'WindSpeed', 'AvgWindSpeed2', 'BatteryStatus', 'BatteryVoltage', 'unsentRain']
+        self.client.message_callback_add("WS/+/jsonts", self.on_message)
+        self.excluded_vars = ['RainRate', 'MonthRain', 'WindSpeed', 'AvgWindSpeed2',
+                              'BatteryStatus', 'BatteryVoltage', 'unsentRain', 'ts']
 
         self.unprocessed_vars = []
         respuesta = cliente.get_codigos_estaciones("TIC168")
@@ -56,37 +58,54 @@ class ModdedHopuWSprocessor:
 
             data = json.loads(str(payload))
             datos = []
-            now = str(datetime.utcnow())
+            if 'ts' in data.keys():
+                ts =str(datetime.utcfromtimestamp(data['ts']))
+            else:
+                ts = str(datetime.utcnow())
+            logger.debug(f"Current frame ts: {ts}")
             logger.info(f"############### Procesando moddedHopu {staID} ###############")
             for k, v in data.items():
                 if k in self.excluded_vars:
                     continue
                 if 'Barometer' == k:
                     logger.debug(f"{staID}: Pressión atmosférica {v}")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PRES', value=v, ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PRES', value=v, ts=ts))
                 elif 'Temperature' == k:
                     logger.debug(f"{staID}: Temperatura {v} C")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='TC', value=round(v,1), ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='TC', value=round(v,1), ts=ts))
                 elif 'RH' == k:
                     logger.debug(f"{staID}: RH {v} %")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HUM', value=v, ts=now))
-                elif 'AvgWindSpeed10' == k:
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HUM', value=v, ts=ts))
+                elif 'AvgWindSpeed10' == k or 'AvgWindSpeed' == k:
                     logger.debug(f"{staID}: ANE {v} m/s")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='ANE', value=round(float(v), 2), ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='ANE', value=round(float(v), 2), ts=ts))
                 elif 'WindDirection' == k:
                     logger.debug(f"{staID}: WD {v} º")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WV', value=v, ts=now))
-                elif 'SolarRadiation' == k:
-                    logger.debug(f"{staID}: RH {v} W/m2")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHI', value=v, ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WV', value=v, ts=ts))
+                elif 'SolarRadiation' == k and not 'GHImean' in data.keys():  # or 'GHImean' == k:
+                    logger.debug(f"{staID}: GHI {v} W/m2")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHI', value=v, ts=ts))
+                elif 'GHImean' == k:
+                    logger.debug(f"{staID}: GHImean {v} W/m2")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHI', value=v, ts=ts))
+                elif 'GHImax' == k:
+                    logger.debug(f"{staID}: GHImax {v} W/m2")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHImax', value=v, ts=ts))
+                elif 'GHImin' == k:
+                    logger.debug(f"{staID}: GHImin {v} W/m2")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHImin', value=v, ts=ts))
+                elif 'UV' == k:
+                    logger.debug(f"{staID}: UV {v}")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='UV', value=v, ts=ts))
                 elif 'WindGust' == k:
                     logger.debug(f"{staID}: WindGust {v} m/s")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='ANEmax', value=round(float(v),2), ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='ANEmax', value=round(float(v),2), ts=ts))
                 elif 'WindGustDirection' == k:
                     logger.debug(f"{staID}: WindGust Direction {v} º")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=now))
-                elif 'fogClicks' == k:
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=ts))
+                elif 'unsentFog' == k:
                     logger.debug((f"{staID}: Precipitación Horizozntal"))
+                    """
                     # Cargar datos desde el archivo JSON
                     try:
                         with open("./moddedHopu.json", "r") as archivo:
@@ -111,9 +130,11 @@ class ModdedHopuWSprocessor:
                     datos_moddedHopu[staID]['HPLV'] = v
                     with open('./moddedHopu.json', 'w') as archivo:
                         json.dump(datos_moddedHopu, archivo)
-
+                    
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=hplv_diff*0.075, ts=now))
-
+                    """
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=v/0.28*0.075,
+                                     ts=ts))
                 elif 'YearRain' == k:
                     logger.debug(f"{staID}: Year Rain {v} mm")
                     # Cargar datos desde el archivo JSON
@@ -143,18 +164,18 @@ class ModdedHopuWSprocessor:
                     with open('./moddedHopu.json', 'w') as archivo:
                         json.dump(datos_moddedHopu, archivo)
 
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=year_rain_diff, ts=now))
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=year_rain_diff, ts=ts))
 
                 else:
                     if k not in self.unprocessed_vars:
                         self.unprocessed_vars.append(k)
-                        print(f"Variables no procesadas: {self.unprocessed_vars}")
+                        logger.info(f"Variables no procesadas: {self.unprocessed_vars}")
 
             if 'YearRain' not in data.keys() and 'unsentRain' in data.keys():
                 v = data['unsentRain']
                 logger.debug(f"{staID}: Precipitation no enviada {v} mm2")
                 if v < 35:
-                   datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=v, ts=now))
+                   datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=v, ts=ts))
                    logger.debug(f"{staID}: Precitación (no enviada) {v} mm/m2")
                 else:
                     logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")

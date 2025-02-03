@@ -105,7 +105,7 @@ class ModdedHopuWSprocessor:
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=ts))
                 elif 'fogClicks' == k:
                     logger.debug((f"{staID}: Precipitación Horizozntal"))
-
+                    """
                     # Cargar datos desde el archivo JSON
                     try:
                         with open("./moddedHopu.json", "r") as archivo:
@@ -135,7 +135,7 @@ class ModdedHopuWSprocessor:
                     """
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=v/0.28*0.075,
                                      ts=ts))
-                    """
+
                 elif 'YearRain' == k:
                     logger.debug(f"{staID}: Year Rain {v} mm")
                     # Cargar datos desde el archivo JSON
@@ -167,19 +167,21 @@ class ModdedHopuWSprocessor:
 
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=year_rain_diff, ts=ts))
 
+                if 'YearRain' not in data.keys() and 'unsentRain' in data.keys():
+                    v = data['unsentRain']
+                    logger.debug(f"{staID}: Precipitation no enviada {v} mm2")
+                    if v < 35:
+                        datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=v, ts=ts))
+                        logger.debug(f"{staID}: Precitación (no enviada) {v} mm/m2")
+                    else:
+                        logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")
+
+
                 else:
                     if k not in self.unprocessed_vars:
                         self.unprocessed_vars.append(k)
                         logger.info(f"Variables no procesadas: {self.unprocessed_vars}")
 
-            if 'YearRain' not in data.keys() and 'unsentRain' in data.keys():
-                v = data['unsentRain']
-                logger.debug(f"{staID}: Precipitation no enviada {v} mm2")
-                if v < 35:
-                   datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=v, ts=ts))
-                   logger.debug(f"{staID}: Precitación (no enviada) {v} mm/m2")
-                else:
-                    logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")
 
 
             if len(datos) > 0:

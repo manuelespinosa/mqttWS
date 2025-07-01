@@ -4,6 +4,7 @@ from modules.environAPI_client.environClient import APIClass
 
 import os
 import json
+import sys
 
 cliente = APIClass()
 
@@ -33,6 +34,10 @@ class ModdedHopuWSprocessor:
         else:
             logger.error(f"Respuesta incorrecta del servidor: {respuesta['status_code']}")
             self.dict_estaciones = None
+
+        if self.dict_estaciones is None:
+            logger.critical("No se pudieron obtener los códigos de las estaciones para ModdedHopuWSprocessor. Saliendo.")
+            sys.exit(1)
 
     """
     def on_connect(self, client, userdata, flags, rc):

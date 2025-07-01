@@ -1,6 +1,6 @@
-# Título del Proyecto (Reemplaza con el título real de tu proyecto)
+# mqttWS: MQTT Weather Stations
 
-(Añade aquí una breve descripción de tu proyecto en una o dos frases.)
+Sistema modular de recogida de datos desde MQTT de estaciones meteorológicas.
 
 Este proyecto está configurado para ejecutarse dentro de un contenedor Docker. La contenerización se encarga de clonar el repositorio del proyecto, instalar las dependencias y ejecutar la aplicación.
 
@@ -39,8 +39,8 @@ Para poner en marcha el proyecto, sigue estos pasos:
     *   `--build`: Esta opción le indica a Docker Compose que construya la imagen antes de iniciar el contenedor. Deberías usarla la primera vez o cuando hayas realizado cambios en el `Dockerfile` o `entrypoint.sh`.
     *   `-d`: Esta opción ejecuta los contenedores en modo detached (en segundo plano).
 
-4.  **Accediendo a la aplicación:**
-    (Añade aquí instrucciones sobre cómo acceder a tu aplicación. Por ejemplo, si es un servidor web, especifica el puerto, ej.: `Abre tu navegador y navega a http://localhost:8000`). Si es un script que procesa datos, explica cómo verificar su salida o logs.
+4.  **Ejecutar la aplicación:**
+    Los logs confirmarán si el sistema se está ejecutando correctamente. No existe interfaz gráfica de administración.
 
     Para ver los logs del contenedor en ejecución:
     ```bash
@@ -99,5 +99,4 @@ Sin embargo, dado que `./app` es un bind mount desde tu anfitrión, `docker-comp
 *   **Versión de Python**: Para cambiar la versión de Python, modifica la línea `FROM` en el `Dockerfile` para usar una etiqueta de imagen de Python diferente (por ejemplo, `python:3.8-slim`, `python:3.10`) y reconstruye.
 *   **Dependencias del Sistema**: Si tu aplicación requiere bibliotecas de sistema adicionales, añade su instalación a la línea `RUN apt-get update && apt-get install -y ...` en el `Dockerfile` y reconstruye.
 
-(Añade cualquier otra sección relevante, ej.: Contribuciones, Licencia, Solución de Problemas)
 ```

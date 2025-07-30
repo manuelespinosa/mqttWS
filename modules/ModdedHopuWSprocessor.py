@@ -108,7 +108,7 @@ class ModdedHopuWSprocessor:
                 elif 'WindGustDirection' == k:
                     logger.debug(f"{staID}: WindGust Direction {v} º")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=ts))
-                elif 'fogClicks' == k:
+                elif 'unsentFog' == k:
                     logger.debug((f"{staID}: Precipitación Horizozntal"))
                     """
                     # Cargar datos desde el archivo JSON
@@ -138,7 +138,7 @@ class ModdedHopuWSprocessor:
                     
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=hplv_diff*0.075, ts=ts))
                     """
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=v/0.28*0.075,
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HPLV', value=v,
                                      ts=ts))
 
                 elif 'YearRain' == k:

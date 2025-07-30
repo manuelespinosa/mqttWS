@@ -18,7 +18,7 @@ class IFAPAMetos:
         #self.client.on_connect = self.on_connect
         #self.client.on_message = self.on_message
         self.client.message_callback_add("IFAPAMetos/+/json", self.on_message)
-        self.excluded_vars = ['ts', 'Solar Panel', 'Battery', 'HC Serial Number', 'Dew Point', 'VPD',
+        self.excluded_vars = ['ts', 'datestr', 'Solar Panel', 'Battery', 'HC Serial Number', 'Dew Point', 'VPD',
                               'DeltaT', 'EAG Soil moisture 1',  'EAG Soil moisture 2',  'EAG Soil moisture 3',
                               'EAG Soil moisture 4',  'EAG Soil moisture 5',  'EAG Soil moisture 6',
                               'EAG Soil moisture 7',  'EAG Soil moisture 8',  'EAG Soil moisture 9',
@@ -67,9 +67,11 @@ class IFAPAMetos:
 
             data = json.loads(str(payload))
             datos = []
-            local = pytz.timezone('Europe/Madrid')
-            now_tz = local.localize(datetime.fromtimestamp(data['ts']))
-            now = str(now_tz.astimezone(pytz.utc)).split('+')[0]
+            #local = pytz.timezone('Europe/Madrid')
+            #now_tz = local.localize(datetime.fromtimestamp(data['ts']))
+            #now = str(now_tz.astimezone(pytz.utc)).split('+')[0]
+
+            now = str(datetime.fromtimestamp(data['ts']).astimezone(pytz.UTC)).split('+')[0]
             logger.info(f"############### Procesando IFAPA Metos {staID} ###############")
             for k, v in data.items():
                 if k in self.excluded_vars:

@@ -18,7 +18,7 @@ class IFAPAMetos:
         #self.client.on_connect = self.on_connect
         #self.client.on_message = self.on_message
         self.client.message_callback_add("IFAPAMetos/+/json", self.on_message)
-        self.excluded_vars = ['ts', 'datestr', 'Solar Panel', 'Battery', 'HC Serial Number', 'Dew Point', 'VPD',
+        self.excluded_vars = ['ts', 'datestr', 'Serial Number', 'Solar Panel', 'Battery', 'HC Serial Number', 'Dew Point', 'VPD',
                               'DeltaT', 'EAG Soil moisture 1',  'EAG Soil moisture 2',  'EAG Soil moisture 3',
                               'EAG Soil moisture 4',  'EAG Soil moisture 5',  'EAG Soil moisture 6',
                               'EAG Soil moisture 7',  'EAG Soil moisture 8',  'EAG Soil moisture 9',
@@ -94,6 +94,9 @@ class IFAPAMetos:
                 elif 'Solar radiation' == k:
                     logger.debug(f"{staID}: RH {v} W/m2")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHI', value=v, ts=now))
+                elif 'Humedad de suelo' == k:
+                    logger.debug(f"{staID}: HS5 {v} %")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HS5', value=v, ts=now))
                 else:
                     logger.info(f"Variable no procesada {k} con valor {v}")
 

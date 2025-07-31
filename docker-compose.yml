@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my_python_app
+    restart: unless-stopped
+    environment:
+      - GITHUB_API_KEY=${GITHUB_API_KEY} # Must be set in .env file or system environment
+      - REPO_URL=${REPO_URL}             # Must be set in .env file or system environment
+    volumes:
+      - ./app:/app # Bind mount for the application code
+    # If you need to expose any ports from your application:
+    # ports:
+    #   - "8000:8000"
+    # The command to run can be overridden here if needed,
+    # otherwise it defaults to CMD in Dockerfile (python main.py)
+    # command: ["python", "your_app_script.py"]
+
+# To use this docker-compose.yml:
+# 1. Create a .env file in the same directory with:
+#    GITHUB_API_KEY=your_github_api_key_here
+#    REPO_URL=https://github.com/your_username/your_repository.git
+# 2. Run 'docker-compose up -d --build'

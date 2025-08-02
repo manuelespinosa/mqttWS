@@ -94,7 +94,7 @@ class IFAPAMetos:
                 elif 'Solar radiation' == k:
                     logger.debug(f"{staID}: RH {v} W/m2")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='GHI', value=v, ts=now))
-                elif 'Humedad de suelo' == k:
+                elif 'Humedad de suelo' == k or 'PI54D' == k:
                     logger.debug(f"{staID}: HS5 {v} %")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HS5', value=v, ts=now))
                 else:

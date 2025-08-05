@@ -108,6 +108,9 @@ class ModdedHopuWSprocessor:
                 elif 'WindGustDirection' == k:
                     logger.debug(f"{staID}: WindGust Direction {v} º")
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='WVmax', value=v, ts=ts))
+                elif 'VWC1' == k:
+                    logger.debug(f"{staID}: Humedad Suelo 5 cm {v}")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HS5', value=v, ts=ts))
                 elif 'unsentFog' == k:
                     logger.debug((f"{staID}: Precipitación Horizozntal"))
                     """
@@ -172,6 +175,12 @@ class ModdedHopuWSprocessor:
 
                     datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='PLV1', value=year_rain_diff, ts=ts))
 
+
+                else:
+                    if k not in self.unprocessed_vars:
+                        self.unprocessed_vars.append(k)
+                        logger.info(f"Variables no procesadas: {self.unprocessed_vars}")
+
                 if 'YearRain' not in data.keys() and 'unsentRain' in data.keys():
                     v = data['unsentRain']
                     logger.debug(f"{staID}: Precipitation no enviada {v} mm2")
@@ -181,13 +190,8 @@ class ModdedHopuWSprocessor:
                     else:
                         logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")
 
-                elif 'VWC1' == k:
-                    logger.debug(f"{staID}: Humedad Suelo 5 cm {v}")
-                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HS5', value=v, ts=ts))
-                else:
-                    if k not in self.unprocessed_vars:
-                        self.unprocessed_vars.append(k)
-                        logger.info(f"Variables no procesadas: {self.unprocessed_vars}")
+
+
 
 
 

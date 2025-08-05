@@ -181,7 +181,9 @@ class ModdedHopuWSprocessor:
                     else:
                         logger.warning(f"{staID} informa de una precipitación anómala ({v} mm/m2)")
 
-
+                elif 'VWC1' == k:
+                    logger.debug(f"{staID}: Humedad Suelo 5 cm {v}")
+                    datos.append(cliente.dato(dev_id=self.dict_estaciones[staID], var_name='HS5', value=v, ts=ts))
                 else:
                     if k not in self.unprocessed_vars:
                         self.unprocessed_vars.append(k)
